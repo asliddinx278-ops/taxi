@@ -317,6 +317,7 @@
                             <th>👤 Haydovchi Ismi</th>
                             <th>📞 Telefon</th>
                             <th>🚗 Mashina</th>
+                            <th>📱 Telegram ID</th>
                             <th>📋 Buyurtmalar</th>
                             <th>💰 Daromad</th>
                             <th>💵 Admin</th>
@@ -418,6 +419,7 @@
                         <td class="driver-name">🚗 ${driver.name}</td>
                         <td>${driver.phone}</td>
                         <td>Toyota Camry</td>
+                        <td>${driver.telegram_id ? `🤖 ${driver.telegram_id}` : '—'}</td>
                         <td><span class="badge badge-success">${completedOrders}</span></td>
                         <td class="money-neutral">${revenue.toLocaleString()} сўм</td>
                         <td class="money-positive">${adminPart.toLocaleString()} сўм</td>

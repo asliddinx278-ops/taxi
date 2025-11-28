@@ -180,6 +180,7 @@ def init_system():
             phone="+998901234567",
             name="Admin User",
             role=UserRole.ADMIN,
+            telegram_id="123456789",  # Admin Telegram ID
             is_active=True
         )
         db.add(admin)

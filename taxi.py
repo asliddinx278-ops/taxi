@@ -25,17 +25,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    """Configuration settings"""
+    """Configuration settings - Minimal setup"""
     DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///taxi_system.db')
-    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
-    JWT_SECRET = os.getenv('JWT_SECRET', 'jwt-secret-key-change-in-production')
-    DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
-    PORT = int(os.getenv('PORT', 5000))
-    WEB_APP_URL = os.getenv('WEB_APP_URL', 'http://localhost:5000')
-    TELEGRAM_WEBHOOK_URL = os.getenv('TELEGRAM_WEBHOOK_URL', '')
-    ORDER_TIMEOUT_MINUTES = int(os.getenv('ORDER_TIMEOUT_MINUTES', 5))
-    AUTO_ASSIGN_RADIUS_KM = float(os.getenv('AUTO_ASSIGN_RADIUS_KM', 5.0))
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-2025')
 
 # =====================================================
 # 🗄️ DATABASE MODELS

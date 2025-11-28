@@ -175,15 +175,24 @@ def init_system():
         return
     
     try:
-        # Create admin
-        admin = User(
+        # Create admins
+        admin1 = User(
             phone="+998901234567",
-            name="Admin User",
+            name="Admin Panel 1",
             role=UserRole.ADMIN,
-            telegram_id="123456789",  # Admin Telegram ID
+            telegram_id="admin_panel_1",
             is_active=True
         )
-        db.add(admin)
+        db.add(admin1)
+        
+        admin2 = User(
+            phone="+998901234568",
+            name="Admin Panel 2",
+            role=UserRole.ADMIN,
+            telegram_id="admin_panel_2",
+            is_active=True
+        )
+        db.add(admin2)
         
         # Create dispatchers
         dispatcher1 = User(

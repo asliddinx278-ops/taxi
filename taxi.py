@@ -25,9 +25,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    """Configuration settings - Minimal setup"""
+    """Configuration settings"""
     DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///taxi_system.db')
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-2025')
+    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
+    WEB_APP_URL = os.getenv('WEB_APP_URL', 'http://localhost:5000')
 
 # =====================================================
 # 🗄️ DATABASE MODELS

@@ -745,11 +745,8 @@ def init_system():
     
     # Check if data already exists
     if db.query(User).count() > 0:
-        print("✅ System already initialized")
         db.close()
         return
-    
-    print("🔄 Initializing system...")
     
     try:
         # Create admin
@@ -827,11 +824,8 @@ def init_system():
             db.add(location)
         
         db.commit()
-        print("✅ System initialized successfully!")
-        print(f"📱 Test Phone: +998901234567 (Admin)")
         
     except Exception as e:
-        print(f"❌ Error: {str(e)}")
         db.rollback()
     finally:
         db.close()
@@ -853,12 +847,6 @@ if __name__ == '__main__':
     if args.init:
         init_system()
     elif args.start_web:
-        print(f"\n🚀 Starting Taxi System Web Server on port {args.port}...")
-        print(f"📱 Customer App: http://localhost:{args.port}/customer.html")
-        print(f"👨‍✈️ Driver App: http://localhost:{args.port}/driver.html")
-        print(f"🔐 Admin Panel: http://localhost:{args.port}/admin.html")
-        print(f"📡 API: http://localhost:{args.port}/api")
-        print("\nPress Ctrl+C to stop\n")
         app.run(host='0.0.0.0', port=args.port, debug=Config.DEBUG)
     else:
         # Default: start web server

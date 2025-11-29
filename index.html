@@ -1,17 +1,134 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="utf-8"/>
-  <title>O‘zbek Taomlari – 2025</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <link rel="manifest" href="manifest.json"/>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-  <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚕 Taxi System - Professional Ride-Sharing</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="light">
-  <main id="pages">
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            🚕 TAXI SYSTEM
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="#drivers" class="navbar-link">Haydovchilar</a></li>
+            <li><a href="#customers" class="navbar-link">Mijozlar</a></li>
+            <li><a href="#admin" class="navbar-link">Admin</a></li>
+            <li><a href="#about" class="navbar-link">Haqida</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 20px; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px;">🚕 Professional Taxi System</h1>
+            <p style="font-size: 18px; margin-bottom: 40px;">O'zbekiston bo'ylab eng qulaylik yo'l bo'ling</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="driver_pro.html" class="btn btn-primary" style="background: white; color: #667eea;">
+                    🚗 Haydovchi App
+                </a>
+                <a href="customer.html" class="btn btn-primary">
+                    👤 Mijoz App
+                </a>
+                <a href="admin_login.html" class="btn btn-primary">
+                    🔑 Admin Panel
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DRIVERS SECTION -->
+    <section id="drivers" style="padding: 60px 20px; background: var(--light);">
+        <div class="container">
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 40px; text-align: center;">🚗 Haydovchilar Uchun</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">💰</div>
+                    <div class="card-title">Yoqimli Daromad</div>
+                    <p class="card-subtitle mt-2">Har sayohat uchun mustahkam daromad oldi</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">📱</div>
+                    <div class="card-title">Oson Boshqarish</div>
+                    <p class="card-subtitle mt-2">Intuitiv mobile app bilan raxat ishlash</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">📍</div>
+                    <div class="card-title">Real-time GPS</div>
+                    <p class="card-subtitle mt-2">Aksirovka va joylashuvni kuzatish</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOMERS SECTION -->
+    <section id="customers" style="padding: 60px 20px;">
+        <div class="container">
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 40px; text-align: center;">👤 Mijozlar Uchun</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">⚡</div>
+                    <div class="card-title">Tez Xizmat</div>
+                    <p class="card-subtitle mt-2">Daqiqalar ichida mashinani chaqirib oling</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">💳</div>
+                    <div class="card-title">Xavfsiz To'lov</div>
+                    <p class="card-subtitle mt-2">Naqd va digital to'lovlar qabul qiladi</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">⭐</div>
+                    <div class="card-title">Reyting Tizimi</div>
+                    <p class="card-subtitle mt-2">Sifatli xizmatni baholang va fikringizni bildiring</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADMIN SECTION -->
+    <section id="admin" style="padding: 60px 20px; background: var(--light);">
+        <div class="container">
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 40px; text-align: center;">🔑 Admin Panel</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">👥</div>
+                    <div class="card-title">Foydalanuvchi Boshqaruvi</div>
+                    <p class="card-subtitle mt-2">Haydovchi va mijozlarni boshqaring</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">💹</div>
+                    <div class="card-title">Moliyaviy Hisobotlar</div>
+                    <p class="card-subtitle mt-2">Daromad va komissiyani ko'ring</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">📊</div>
+                    <div class="card-title">Statistika</div>
+                    <p class="card-subtitle mt-2">Barcha ko'rsatkichlar bir joyda</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" style="padding: 60px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 20px;">🎯 Haqida</h2>
+            <p style="font-size: 18px; margin-bottom: 20px;">
+                Taxi System - O'zbekistonda eng yangi va eng qulaylik ride-sharing platformasi. <br/>
+                Biz haydovchilar va mijozlarni texnologiya bilan tutashadimiz.
+            </p>
+            <p style="font-size: 14px;">© 2025 Taxi System. Barcha huquqlar himoyalangan.</p>
+        </div>
+    </section>
+
+    <!-- NOTIFICATIONS CONTAINER -->
+    <div id="notifications"></div>
+
+    <!-- SCRIPTS -->
+    <script src="app.js"></script>
+    <script>
     <!-- ASOSIY -->
     <section id="page-main" class="page active">
       <header class="top-bar">

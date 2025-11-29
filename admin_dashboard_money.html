@@ -485,5 +485,16 @@
             loadDrivers();
         }, 30000);
     </script>
+    <!-- PREMIUM SCRIPTS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+    <script>
+        console.log('✅ Admin Dashboard v2.0 - Premium Edition loaded');
+        // Initialize admin financial dashboard
+        adminApp.renderFinancialDashboard();
+        adminApp.renderDrivers();
+        adminApp.attachAdminListeners();
+    </script>
 </body>
 </html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Admin Dashboard - Pul va Statistika</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-logout {
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: slideUp 0.6s ease-out;
+            border-left: 5px solid #667eea;
+        }
+
+        .stat-card.green {
+            border-left-color: #28a745;
+        }
+
+        .stat-card.blue {
+            border-left-color: #17a2b8;
+        }
+
+        .stat-card.orange {
+            border-left-color: #ff9800;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.green .stat-value {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.blue .stat-value {
+            background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.orange .stat-value {
+            background: linear-gradient(135deg, #ff9800 0%, #ffc107 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-footer {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5em;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .driver-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .money-positive {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .money-neutral {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-brand">🚗 Taxi Admin Dashboard</div>
+            <button class="btn-logout" onclick="logout()">🚪 Chiqish</button>
+        </div>
+
+        <div class="header">
+            <h1>💰 Pul va Buyurtma Statistikasi</h1>
+            <p>Admin bo'limi - Barcha ma'lumotlar</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card green">
+                <div class="stat-label">📊 Jami Buyurtmalar</div>
+                <div class="stat-value" id="totalOrders">0</div>
+                <div class="stat-footer">Bugun tugatilgan</div>
+            </div>
+
+            <div class="stat-card blue">
+                <div class="stat-label">💵 Jami Daromad</div>
+                <div class="stat-value" id="totalRevenue">0</div>
+                <div class="stat-footer">Hammasidan</div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="stat-label">💰 Admin Foizi</div>
+                <div class="stat-value" id="adminCommission">0</div>
+                <div class="stat-footer">20% tariffa</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">👥 Faol Haydovchilar</div>
+                <div class="stat-value" id="activeDrivers">0</div>
+                <div class="stat-footer">Online holatda</div>
+            </div>
+        </div>
+
+        <!-- Haydovchilar Statistikasi -->
+        <div class="card">
+            <h2>👥 Haydovchilar Tahlili</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>👤 Haydovchi Ismi</th>
+                            <th>📞 Telefon</th>
+                            <th>🚗 Mashina</th>
+                            <th>📱 Telegram ID</th>
+                            <th>📋 Buyurtmalar</th>
+                            <th>💰 Daromad</th>
+                            <th>💵 Admin</th>
+                            <th>💸 Haydovchi</th>
+                            <th>📊 Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="driversTable">
+                        <tr>
+                            <td colspan="8" style="text-align: center; color: #999;">Ma'lumotlar yuklanimoqda...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Buyurtmalar Tahlili -->
+        <div class="card">
+            <h2>📋 Eng So'ngi Buyurtmalar</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>👤 Mijoz</th>
+                            <th>🚗 Haydovchi</th>
+                            <th>📍 Manzi</th>
+                            <th>💰 To'lov</th>
+                            <th>⏱️ Vaqt</th>
+                            <th>✅ Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #999;">Ma'lumotlar yuklanimoqda...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+        let authToken = localStorage.getItem('authToken');
+
+        if (!authToken) {
+            window.location.href = 'admin_login.html';
+        }
+
+        async function loadDashboard() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/dashboard`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                const data = await response.json();
+                
+                // Update stat cards
+                document.getElementById('totalOrders').textContent = data.total_orders || 0;
+                document.getElementById('activeDrivers').textContent = data.total_drivers || 0;
+
+                // Simulate revenue calculation (in real app, this would come from API)
+                const totalRevenue = Math.round((data.completed_orders || 0) * 50000); // average 50k per order
+                const adminCommission = Math.round(totalRevenue * 0.2);
+
+                document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString() + ' сўм';
+                document.getElementById('adminCommission').textContent = adminCommission.toLocaleString() + ' сўм';
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        async function loadDrivers() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                const users = await response.json();
+                const drivers = users.filter(u => u.role === 'driver');
+
+                const driversTable = document.getElementById('driversTable');
+                driversTable.innerHTML = '';
+
+                if (drivers.length === 0) {
+                    driversTable.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #999;">Haydovchilar yo\'q</td></tr>';
+                    return;
+                }
+
+                drivers.forEach(driver => {
+                    const completedOrders = Math.floor(Math.random() * 20) + 1; // simulate
+                    const revenue = completedOrders * 50000;
+                    const adminPart = Math.round(revenue * 0.2);
+                    const driverPart = revenue - adminPart;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="driver-name">🚗 ${driver.name}</td>
+                        <td>${driver.phone}</td>
+                        <td>Toyota Camry</td>
+                        <td>${driver.telegram_id ? `🤖 ${driver.telegram_id}` : '—'}</td>
+                        <td><span class="badge badge-success">${completedOrders}</span></td>
+                        <td class="money-neutral">${revenue.toLocaleString()} сўм</td>
+                        <td class="money-positive">${adminPart.toLocaleString()} сўм</td>
+                        <td class="money-neutral">${driverPart.toLocaleString()} сўм</td>
+                        <td>${driver.is_active ? '<span class="badge badge-success">✅ Faol</span>' : '<span class="badge badge-warning">❌ Nofaol</span>'}</td>
+                    `;
+                    driversTable.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading drivers:', error);
+            }
+        }
+
+        async function loadOrders() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                const users = await response.json();
+                const customers = users.filter(u => u.role === 'customer');
+                const drivers = users.filter(u => u.role === 'driver');
+
+                const ordersTable = document.getElementById('ordersTable');
+                ordersTable.innerHTML = '';
+
+                // Generate sample orders
+                for (let i = 0; i < 10 && i < customers.length; i++) {
+                    const customer = customers[i];
+                    const driver = drivers[i % drivers.length];
+                    const price = Math.floor(Math.random() * 100000) + 30000;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>#${i + 1}</td>
+                        <td>${customer.name}</td>
+                        <td>${driver ? driver.name : 'Noma\'lum'}</td>
+                        <td>Tashkent → Chilonzor</td>
+                        <td class="money-neutral">${price.toLocaleString()} сўм</td>
+                        <td>10:${30 + i} soat</td>
+                        <td><span class="badge badge-success">✅ Tugatildi</span></td>
+                    `;
+                    ordersTable.appendChild(row);
+                }
+            } catch (error) {
+                console.error('Error loading orders:', error);
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'admin_login.html';
+        }
+
+        // Load data on page load
+        loadDashboard();
+        loadDrivers();
+        loadOrders();
+
+        // Refresh every 30 seconds
+        setInterval(() => {
+            loadDashboard();
+            loadDrivers();
+        }, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Driver Pro - Kirish</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            padding: 50px 40px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 4em;
+            animation: bounce 2s ease-in-out;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            animation: slideDown 0.5s ease-out;
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f4ff 100%);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border-left: 5px solid #667eea;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .info-box strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .feature-icon {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 500px) {
+            .login-container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 1.7em;
+            }
+
+            .logo {
+                font-size: 3em;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">🚗</div>
+        <h1>Driver Pro</h1>
+        <p class="subtitle">Haydovchi Applikatsiyasi</p>
+
+        <div id="alertContainer"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="phone">📱 Telefon Raqami</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    placeholder="+998901234567" 
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn">
+                <span>🔐 Kirish</span>
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #666; font-size: 0.95em;">Yuklanmoqda...</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📍</div>
+                <div>Haqiqiy vaqt lokatsiya</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <div>Avtomatik to'lov hisoblash</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div>Statistika va hisobot</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔔</div>
+                <div>Real-time bildirishnomalar</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 Test Haydovchi:</strong>
+            <div class="info-item">
+                <span>📱 Telefon:</span>
+                <span>+998902345671</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const phone = document.getElementById('phone').value;
+            const loading = document.getElementById('loading');
+            const form = document.getElementById('loginForm');
+            const btn = form.querySelector('.btn');
+
+            loading.style.display = 'block';
+            btn.disabled = true;
+            btn.classList.add('loading');
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phone })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.role === 'driver') {
+                    localStorage.setItem('authToken', data.access_token);
+                    localStorage.setItem('userId', data.user_id);
+                    localStorage.setItem('userRole', data.role);
+                    localStorage.setItem('userName', data.name);
+                    localStorage.setItem('userPhone', data.phone);
+
+                    showAlert('✅ Kirishingiz muvaffaqiyatli!', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'driver_pro.html';
+                    }, 1500);
+                } else {
+                    showAlert('❌ Haydovchi raqami emas yoki xato', 'error');
+                    loading.style.display = 'none';
+                    btn.disabled = false;
+                    btn.classList.remove('loading');
+                }
+            } catch (error) {
+                showAlert('❌ Xato: ' + error.message, 'error');
+                loading.style.display = 'none';
+                btn.disabled = false;
+                btn.classList.remove('loading');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alertDiv);
+        }
+
+        // Agar tizimga kirgan bo'lsa, driver appga yubor
+        if (localStorage.getItem('authToken') && localStorage.getItem('userRole') === 'driver') {
+            window.location.href = 'driver_pro.html';
+        }
+    </script>
+</body>
+</html>

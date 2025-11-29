@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚕 Taksi Boshqaruv Tizimi - Mijoz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .content {
+            padding: 30px 20px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .order-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .order-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .order-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-assigned {
+            background: #cfe2ff;
+            color: #084298;
+        }
+        
+        .status-started {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+        
+        .status-completed {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+        
+        .status-cancelled {
+            background: #f8d7da;
+            color: #842029;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .alert-success {
+            background: #d1e7dd;
+            color: #0f5132;
+            border-left: 4px solid #198754;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #842029;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .alert-info {
+            background: #cfe2ff;
+            color: #084298;
+            border-left: 4px solid #0d6efd;
+        }
+        
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tab-button {
+            padding: 10px;
+            border: 2px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚕 Taksi Boshqaruv Tizimi</h1>
+            <p>Mijoz Portali - Oson va Tez Taksi Buyurtmasi</p>
+        </div>
+        
+        <div class="content">
+            <!-- Login Section -->
+            <div id="loginSection" class="section" style="display: none;">
+                <h2>📱 Kirish</h2>
+                <div class="form-group">
+                    <label>Telefon Raqami</label>
+                    <input type="tel" id="loginPhone" placeholder="+998901234567" />
+                </div>
+                <button class="btn-primary" onclick="login()" style="width: 100%;">Kirish</button>
+            </div>
+            
+            <!-- Main Section -->
+            <div id="mainSection" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="border: none; padding: 0; margin: 0;">👋 Xush Kelibsiz!</h2>
+                    <button class="btn-secondary" onclick="logout()">Chiqish</button>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab-button active" onclick="showTab('order')">🚗 Buyurtma Berish</button>
+                    <button class="tab-button" onclick="showTab('active')">⏳ Faol Buyurtmalar</button>
+                    <button class="tab-button" onclick="showTab('history')">📋 Tarix</button>
+                </div>
+                
+                <!-- Order Tab -->
+                <div id="orderTab" class="section">
+                    <h2>🚗 Yangi Buyurtma</h2>
+                    <div class="form-group">
+                        <label>Qayerdan Yuborasiz?</label>
+                        <input type="text" id="pickupLocation" placeholder="Manzilingizni kiriting" />
+                    </div>
+                    <div class="form-group">
+                        <label>Qayerga Borasiz?</label>
+                        <input type="text" id="destination" placeholder="Yo'l(cha)singizni kiriting" />
+                    </div>
+                    <div class="form-group">
+                        <label>Nechta Kishi?</label>
+                        <select id="passengers">
+                            <option value="1">1 kishi</option>
+                            <option value="2">2 kishi</option>
+                            <option value="3">3 kishi</option>
+                            <option value="4">4+ kishi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Vaqti</label>
+                        <select id="orderType">
+                            <option value="now">🕐 Hozir</option>
+                            <option value="scheduled">⏰ Keyinroq</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Izohlar (ixtiyoriy)</label>
+                        <textarea id="comment" placeholder="Maxsus so'rovingiz bo'lsa yozing" rows="3"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="createOrder()">✓ Buyurtma Berish</button>
+                        <button class="btn-secondary" onclick="clearForm()">✕ Tozalash</button>
+                    </div>
+                </div>
+                
+                <!-- Active Orders Tab -->
+                <div id="activeTab" class="section" style="display: none;">
+                    <h2>⏳ Faol Buyurtmalar</h2>
+                    <div id="activeOrders"></div>
+                </div>
+                
+                <!-- History Tab -->
+                <div id="historyTab" class="section" style="display: none;">
+                    <h2>📋 Buyurtma Tarixi</h2>
+                    <div id="orderHistory"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="customer.js"></script>
+</body>
+</html>

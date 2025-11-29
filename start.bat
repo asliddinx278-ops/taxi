@@ -1,76 +1,65 @@
 @echo off
-REM Quick Start Script for Taxi Management System
+REM ============================================
+REM 🚕 TAXI SYSTEM - START SCRIPT (Windows)
+REM ============================================
+
 echo.
-echo ========================================
-echo   Taxi Management System - Boshlash
-echo ========================================
+echo 🚕 TAXI SYSTEM STARTING...
 echo.
 
-REM Check Python
+REM Check if Python is installed
 python --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo.
-    echo ERROR: Python o'rnatilmagan!
-    echo Please install Python 3.8 or higher
+if errorlevel 1 (
+    echo ❌ Python not found! Please install Python 3.8+
     pause
     exit /b 1
 )
 
-echo ✓ Python topildi
-
-REM Check dependencies
-echo.
-echo Dependency-larni tekshirilmoqda...
-pip show flask >nul 2>&1
-if %errorlevel% neq 0 (
-    echo.
-    echo ✗ Dependencies o'rnatilmagan!
-    echo.
-    echo Quyidagini o'rnatish uchun ishga tushirish:
-    echo    pip install -r requirements.txt
-    echo.
-    pause
-    exit /b 1
+REM Check if venv exists
+if not exist venv (
+    echo 📦 Creating virtual environment...
+    python -m venv venv
 )
 
-echo ✓ Barcha dependencies o'rnatilgan
+REM Activate venv
+call venv\Scripts\activate.bat
 
-REM Check .env file
-if not exist ".env" (
+REM Install/update requirements
+echo 📥 Installing dependencies...
+pip install -q -r requirements.txt
+
+REM Show menu
+echo.
+echo ============================================
+echo 🚕 TAXI SYSTEM MENU
+echo ============================================
+echo.
+echo 1. Start Telegram Bot (🤖)
+echo 2. Initialize Database (💾)
+echo 3. View Database (📊)
+echo 4. Exit
+echo.
+set /p choice=Choose option (1-4): 
+
+if "%choice%"=="1" (
     echo.
-    echo ⚠ .env fayli topilmadi!
-    echo .env.example ni .env ga nusxa olamiz...
-    copy .env.example .env >nul
-    echo ✓ .env fayli yaratildi - sozlamalarnii o'zgartirishni tavsiya etamiz
+    echo 🤖 Starting Telegram Bot...
+    echo 📱 Bot Commands:
+    echo   /start - Start
+    echo   /help - Help
+    echo   /profile - Profile
+    echo.
+    python taxi.py
+) else if "%choice%"=="2" (
+    echo.
+    echo 💾 Initializing database...
+    python -c "from taxi import init_system; init_system(); print('✅ Database initialized!')"
+) else if "%choice%"=="3" (
+    echo.
+    echo 📊 Database info:
+    python -c "from taxi import SessionLocal, User; db = SessionLocal(); print(f'Total Users: {db.query(User).count()}'); db.close()"
+) else (
+    echo Goodbye!
 )
 
-REM Initialize system
-echo.
-echo Tizim o'rnatilmoqda...
-python init_system.py
-
-if %errorlevel% neq 0 (
-    echo.
-    echo ERROR: Tizim o'rnatishda xato!
-    pause
-    exit /b 1
-)
-
-echo.
-echo ========================================
-echo   Tizim tayyor! Quyidagi 3 terminalda:
-echo ========================================
-echo.
-echo Terminal 1 (WEB SERVER):
-echo   python app.py
-echo.
-echo Terminal 2 (ADMIN PANEL):
-echo   python admin_panel.py
-echo.
-echo Terminal 3 (DISPATCHER PANEL):
-echo   python dispatcher_panel.py
-echo.
-echo Health Check:
-echo   curl http://localhost:5000/health
-echo.
 pause
